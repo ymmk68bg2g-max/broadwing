@@ -1,0 +1,187 @@
+/* Adjacent sections share the same edge colour. Local pools of light fade
+   before those edges, including when a mobile section grows with its content. */
+main {
+  --light-paper: #fbfcf8;
+  --light-ivory: #f5f8ed;
+  --light-mint: #e0f2e6;
+  --light-pearl: #f3f8ef;
+  --light-sage: #e6f3e8;
+  --light-jade: #deeee2;
+  --light-veil: #dcece0;
+  --contact-green: #174b3f;
+  --footer-green: #102f29;
+  --dusk-field: clamp(350px, 50vh, 570px);
+  --dusk-specs: calc(var(--dusk-field) * .48);
+  --dusk-gap: clamp(24px, 3.3vh, 40px);
+  --dusk-contact: calc(var(--dusk-field) - var(--dusk-specs) - var(--dusk-gap));
+  container-type: inline-size;
+  overflow-x: clip;
+}
+
+/* The content keeps its original max-width. Only the backgrounds extend out
+   to the edges of the page. Clip the 100vw fallback on older browsers. */
+main > section {
+  position: relative;
+  isolation: isolate;
+}
+
+main > section:is(.modes, .variants, .contact) {
+  background: transparent;
+}
+
+main > section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  width: 100cqw;
+  transform: translateX(-50%);
+  background-color: var(--section-start);
+  background-image:
+    radial-gradient(ellipse 72% 43% at var(--glow-x) 48%, var(--glow), transparent 100%),
+    linear-gradient(to bottom, var(--section-start), var(--section-end));
+}
+
+.hero {
+  --section-start: var(--light-paper);
+  --section-end: var(--light-ivory);
+  --glow-x: 84%;
+  --glow: rgb(208 240 213 / .57);
+}
+
+.key-specs {
+  --section-start: var(--light-ivory);
+  --section-end: var(--light-mint);
+  --glow-x: 16%;
+  --glow: rgb(251 243 209 / .40);
+}
+
+.modes {
+  --section-start: var(--light-mint);
+  --section-end: var(--light-pearl);
+  --glow-x: 72%;
+  --glow: rgb(186 228 208 / .62);
+}
+
+.details {
+  --section-start: var(--light-pearl);
+  --section-end: var(--light-sage);
+  --glow-x: 18%;
+  --glow: rgb(255 247 217 / .58);
+}
+
+.variants {
+  --section-start: var(--light-sage);
+  --section-end: var(--light-jade);
+  --glow-x: 65%;
+  --glow: rgb(188 228 205 / .66);
+}
+
+.specifications {
+  --section-start: var(--light-jade);
+  --section-end: var(--light-veil);
+  --glow-x: 17%;
+  --glow: rgb(251 245 217 / .46);
+}
+
+.contact {
+  --section-start: var(--contact-green);
+  --section-end: var(--footer-green);
+  --glow-x: 15%;
+  --glow: rgb(34 109 78 / .48);
+  margin-block-start: var(--dusk-gap);
+}
+
+/* Give the junction a consistent reading rhythm even on tall screens. Keep
+   the anchor sections full-height while bringing the form closer to the table. */
+main > #specs {
+  padding-block-end: clamp(16px, 2.4vh, 28px);
+}
+
+main > #contact {
+  align-content: start;
+  padding-block-start: clamp(24px, 3.5vh, 40px);
+}
+
+/* One continuous field spans the end of the table, the space between
+   sections, and the contact opening. Each section paints its portion behind
+   its own text. The two gradients share one size and meet at the same pixel. */
+.specifications::before {
+  background-image:
+    radial-gradient(ellipse 70% 25% at 20% 31%, var(--glow), transparent 100%),
+    linear-gradient(to bottom, var(--section-start), var(--light-veil) calc(100% - var(--dusk-specs)));
+}
+
+.contact::before {
+  background-image:
+    radial-gradient(ellipse 72% 23% at 15% 65%, var(--glow), transparent 100%),
+    linear-gradient(to bottom, var(--contact-green) var(--dusk-contact), var(--footer-green) 100%);
+}
+
+.specifications::after,
+.contact::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: 50%;
+  width: 100vw;
+  width: 100cqw;
+  transform: translateX(-50%);
+  background-image:
+    radial-gradient(ellipse 82% 25% at 94% 36%, rgb(219 240 214 / .75), transparent 100%),
+    radial-gradient(ellipse 94% 26% at 3% 61%, rgb(16 68 52 / .66), transparent 100%),
+    linear-gradient(to bottom,
+      var(--light-veil) 0%,
+      #d3e8d8 17%,
+      #bddbc7 33%,
+      #a7cbb2 44%,
+      #7aa78a 52%,
+      #4e775e 61%,
+      #3b6953 69%,
+      #245844 84%,
+      var(--contact-green) 100%
+    );
+  background-repeat: no-repeat;
+  background-size: 100% var(--dusk-field);
+}
+
+.specifications::after {
+  bottom: 0;
+  height: var(--dusk-specs);
+  background-position: center top;
+}
+
+.contact::after {
+  top: calc(0px - var(--dusk-gap));
+  height: calc(var(--dusk-gap) + var(--dusk-contact));
+  background-position: center bottom;
+}
+
+/* Some shorter viewports place the last rows in the sage part of the field. */
+.specs-table th,
+.resource-note {
+  color: #203e34;
+}
+
+.contact.dark-section .section-marker {
+  color: #e1f9e8;
+}
+
+.site-footer {
+  background: linear-gradient(to bottom, #102f29, #0b261f);
+}
+
+/* The manufacturer's white finish is photographed against a dark studio and a
+   bright worktop. Clip only its silhouette; keep the original surface detail. */
+.variant-photo.white-photo img {
+  --lamp-silhouette: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1680' height='952' viewBox='0 0 1680 952'%3E%3Cpath d='M845 302 L853.5 284 Q854.5 282.5 859 281 L1047 225 L1059.5 200 Q1060 198 1064 196.5 L1138 173 Q1141 171.5 1146 172 L1190 182 L1490.5 88.5 Q1496 86.5 1499.5 87.5 L1536 98.2 Q1540.5 99.2 1542 103.5 L1546 113 Q1547 117.5 1542.5 121 L1234 206.5 L1326 226 Q1353 231 1368 245 Q1409 275 1424.5 338 Q1430 359 1430 378 L1434.5 477 L1436.3 895.5 L1474 902 Q1489 904.7 1487 910.5 Q1486 914 1479 915.6 L1338 940.5 Q1314 943.5 1294 939.5 L1199 918.6 Q1190 917 1190.5 912 Q1190 909 1198 907 L1336 886.7 Q1350 884.5 1368 886 L1395.5 888.5 L1393.8 477 L1397.6 370 Q1398.6 326 1378.2 298 Q1366 272 1342 260.5 Q1333 256 1317 254.2 L1204 234 Q1175 229.5 1147 230.5 L899 300.5 Q896 301.5 891 301 L864.5 297 Z'/%3E%3C/svg%3E");
+  object-fit: contain;
+  object-position: center;
+  -webkit-mask: var(--lamp-silhouette) center / contain no-repeat;
+  mask: var(--lamp-silhouette) center / contain no-repeat;
+  transform: translateX(-18%);
+}

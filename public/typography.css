@@ -1,0 +1,661 @@
+:root {
+  --type-meta: .8125rem;
+  --type-label: .875rem;
+  --type-ui: 1rem;
+  --type-body: clamp(1.0625rem, .98rem + .28vw, 1.25rem);
+}
+
+body {
+  font-size: var(--type-body);
+}
+
+.brand-name {
+  font-size: clamp(1.5rem, 1.25rem + .42vw, 1.8125rem);
+}
+
+.brand-byline {
+  font-size: .75rem;
+  letter-spacing: .015em;
+}
+
+.desktop-nav {
+  gap: clamp(1rem, 2vw, 2.25rem);
+  margin-left: 0;
+}
+
+.desktop-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: clamp(1rem, .6975rem + .5vw, 1.125rem);
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+  transition: color .38s ease;
+}
+
+/* The moving reflection is clipped to the lettering. */
+.desktop-nav a::after {
+  content: none;
+}
+
+.desktop-nav a:is(:hover, :focus-visible) {
+  color: #245b49;
+}
+
+@keyframes nav-letter-reflection {
+  from {
+    background-position: 100% 50%;
+  }
+
+  to {
+    background-position: 0% 50%;
+  }
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  @media screen and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+    .desktop-nav a > span {
+      background-color: currentColor;
+      background-image:
+        linear-gradient(106deg,
+        transparent 37%, #487866 50%, transparent 63%);
+      background-size: 320% 100%;
+      background-repeat: no-repeat;
+      background-position: 100% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .desktop-nav a:focus-visible > span {
+      animation: nav-letter-reflection .92s cubic-bezier(.35, .05, .28, 1) both;
+    }
+
+    @media (hover: hover) {
+      .desktop-nav a:hover > span {
+        animation: nav-letter-reflection .92s cubic-bezier(.35, .05, .28, 1) both;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-nav a {
+    transition: none;
+  }
+}
+
+.header-cta {
+  min-height: 2.75rem;
+  gap: clamp(.5rem, 1.2vw, 1.25rem);
+  padding-inline: clamp(.75rem, 1.2vw, 1.125rem);
+  font-size: clamp(.9375rem, .84rem + .15vw, 1rem);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.menu-toggle {
+  min-height: 2.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.mobile-menu:not([hidden]) {
+  max-height: calc(100dvh - var(--header));
+  overflow-y: auto;
+}
+
+.mobile-menu a {
+  font-size: clamp(1.5rem, 1.0375rem + 2vw, 2.0625rem);
+  font-weight: 550;
+  line-height: 1.3;
+}
+
+.mobile-menu a > span,
+.brand-dot {
+  font-size: var(--type-meta);
+}
+
+.mobile-menu a.mobile-phone {
+  font-size: 1.125rem;
+}
+
+.button,
+.hero-actions .button,
+.config-cta,
+.specs-intro .button,
+.hero-actions .text-link,
+.text-link {
+  font-size: var(--type-ui);
+  font-weight: 650;
+}
+
+.hero-actions {
+  column-gap: clamp(1rem, 1.4vw, 1.625rem);
+}
+
+.hero-actions .button {
+  gap: clamp(.875rem, 1.5vw, 1.75rem);
+}
+
+.hero-actions .text-link {
+  column-gap: .5rem;
+  min-height: 2.75rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.875rem, 5.4vw, 5.5rem);
+}
+
+.hero-intro {
+  font-size: clamp(1.125rem, .93rem + .47vw, 1.4375rem);
+  line-height: 1.55;
+}
+
+.eyebrow,
+.hero-topline .eyebrow,
+.section-marker {
+  font-size: var(--type-label);
+  letter-spacing: .09em;
+}
+
+.hero-edition,
+.visual-tag,
+.hero-visual .visual-tag,
+.variant-photo .visual-tag,
+.engineering-ruler,
+.specs-side-note > span:last-child {
+  font-size: var(--type-meta);
+  letter-spacing: .055em;
+}
+
+.hero-visual figcaption,
+.hero-visual figcaption > span:first-child,
+.variant-photo figcaption,
+.engineering-visual figcaption {
+  font-size: var(--type-label);
+  line-height: 1.5;
+}
+
+.hero-bottom {
+  font-size: var(--type-ui);
+}
+
+.scroll-link {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  font-size: var(--type-meta);
+  font-weight: 650;
+  letter-spacing: .065em;
+}
+
+.section-heading h2,
+h2 {
+  font-size: clamp(2.75rem, 4.65vw, 4.5rem);
+}
+
+.heading-row > p,
+.specs-intro > p:not(.section-marker),
+.contact-copy > p {
+  font-size: var(--type-body);
+  line-height: 1.55;
+}
+
+.lab-top .eyebrow,
+.live-label,
+.temperature-label,
+.config-title > span:last-child,
+.contact-direct .control-label,
+.contact-bottom .control-label {
+  font-size: var(--type-meta);
+  letter-spacing: .06em;
+}
+
+.live-label .signal-dot,
+.mode-dot {
+  flex-shrink: 0;
+}
+
+.scene-temperature > span:first-child {
+  font-size: clamp(2.5rem, 3.45vw, 3.625rem);
+}
+
+.scene-temperature small {
+  font-size: .59em;
+}
+
+.control-label,
+.lab-footnote,
+.detail-number,
+.config-note,
+.config-price-slot,
+.resource-note {
+  font-size: var(--type-label);
+  line-height: 1.55;
+}
+
+.segmented button,
+.config-panel legend,
+.color-option,
+.mount-options button {
+  font-size: var(--type-ui);
+}
+
+.segmented button,
+.mount-options button {
+  min-height: 2.75rem;
+  line-height: 1.35;
+}
+
+.lab-footnote p:last-child {
+  font-size: var(--type-meta);
+}
+
+.mode-features p,
+.detail-list p {
+  font-size: clamp(1rem, .92rem + .23vw, 1.125rem);
+  line-height: 1.6;
+}
+
+.mode-features span {
+  font-size: 1.1875rem;
+  font-weight: 550;
+  line-height: 1.4;
+}
+
+.detail-list h3 {
+  font-size: clamp(1.25rem, 1.04rem + .55vw, 1.625rem);
+  line-height: 1.35;
+}
+
+.config-title > span:first-child {
+  font-size: 1.3125rem;
+}
+
+.consult-option {
+  font-size: var(--type-label);
+  min-height: 2.75rem;
+}
+
+.specs-intro h2 {
+  font-size: clamp(2.375rem, 4.35vw, 4.25rem);
+}
+
+.specs-table {
+  font-size: clamp(1rem, .93rem + .23vw, 1.125rem);
+  line-height: 1.45;
+}
+
+.contact-copy h2 {
+  font-size: clamp(2.625rem, 4.25vw, 4.125rem);
+}
+
+.contact-direct > a {
+  font-size: clamp(1.5rem, 1.16rem + 1vw, 2.125rem);
+}
+
+.contact-direct > span:last-child,
+.form-field label,
+.preference-summary label,
+.consent-label,
+.field-error,
+.summary-heading,
+.summary-heading a {
+  font-size: var(--type-label);
+  line-height: 1.5;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select,
+.form-field input::placeholder,
+.form-field textarea::placeholder,
+.form-status {
+  font-size: var(--type-ui);
+}
+
+.form-field {
+  min-width: 0;
+}
+
+.form-field select {
+  min-height: 2.75rem;
+}
+
+.optional {
+  font-size: var(--type-meta);
+}
+
+.contact-bottom p,
+.other-phones summary,
+.other-phones > div,
+.back-top,
+.footer-tagline {
+  font-size: var(--type-ui);
+}
+
+.footer-bottom nav {
+  flex-wrap: wrap;
+  font-size: var(--type-ui);
+  font-weight: 550;
+  line-height: 1.45;
+}
+
+.footer-bottom nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.footer-bottom > span {
+  font-size: var(--type-meta);
+}
+
+@media (max-width: 950px) {
+  .heading-row > p .wide-break {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero h1 {
+    font-size: clamp(2.5rem, 8.25vw, 3.875rem);
+  }
+
+  .section-heading h2,
+  .contact-copy h2 {
+    font-size: clamp(2.5rem, 7.8vw, 3.5rem);
+  }
+
+  .specs-intro h2 {
+    font-size: clamp(2.2rem, 7.8vw, 3.5rem);
+  }
+
+  .hero-visual figcaption {
+    align-items: baseline;
+  }
+
+  .hero-visual figcaption > span:last-child {
+    text-align: right;
+  }
+
+  .hero-bottom {
+    font-size: var(--type-label);
+  }
+
+  .heading-row > p br,
+  .hero-intro .wide-break {
+    display: none;
+  }
+
+  .lab-top {
+    flex-wrap: wrap;
+  }
+
+  .scene-temperature {
+    gap: .5rem;
+  }
+
+  .segmented button {
+    font-size: clamp(.875rem, 3.6vw, 1rem);
+    padding-inline: .25rem;
+  }
+
+  .engineering-visual figcaption {
+    flex-wrap: wrap;
+  }
+
+  .color-options {
+    gap: .5rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-bottom nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1rem;
+  }
+
+  .hero-bottom {
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+  }
+
+  .mode-features {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .lab-controls {
+    padding-inline: .625rem;
+  }
+
+  .segmented {
+    flex-wrap: wrap;
+  }
+
+  .brightness-choice {
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 950px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .header-inner {
+    gap: 20px;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+  }
+
+  .brand-byline {
+    font-size: .75rem;
+    margin-top: 4px;
+  }
+
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: .9375rem;
+    font-weight: 500;
+    background: none;
+    border: 0;
+    padding: 10px 0 10px 14px;
+    min-height: 44px;
+  }
+
+  .menu-icon {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    width: 24px;
+    height: 24px;
+    overflow: visible;
+  }
+
+  .menu-icon path {
+    transform-origin: center;
+    transition: transform .25s;
+  }
+
+  .menu-toggle[aria-expanded=true] .menu-line-one {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded=true] .menu-line-two {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .mobile-menu:not([hidden]) {
+    display: block;
+    position: absolute;
+    top: calc(var(--header) - 1px);
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 15px 20px #2025230a;
+    padding: 12px 0 24px;
+    animation: menu-open .25s ease-out;
+    max-height: calc(100dvh - var(--header));
+    overflow-y: auto;
+  }
+
+  .mobile-menu a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.75rem;
+    line-height: 1.4;
+    letter-spacing: -.03em;
+    gap: 16px;
+  }
+
+  .mobile-menu a>span {
+    font-size: .8125rem;
+    letter-spacing: 0;
+    color: var(--muted);
+  }
+
+  .mobile-menu a.mobile-phone {
+    font-size: 1.125rem;
+    border: 0;
+    padding-bottom: 0;
+    padding-top: 25px;
+  }
+
+  .menu-toggle {
+    font-size: 1.125rem;
+  }
+
+  .mobile-menu a {
+    font-size: 1.9375rem;
+  }
+}
+
+@media (max-width: 950px) {
+  /* Keep the sticky bar on the same layer throughout the menu lifecycle. */
+  .site-header {
+    background: var(--paper);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .site-header .mobile-menu:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-height, var(--header));
+    height: calc(100vh - var(--nav-height, var(--header)));
+    height: calc(100dvh - var(--nav-height, var(--header)));
+    max-height: none;
+    padding-block: clamp(20px, 6vh, 72px) max(20px, env(safe-area-inset-bottom));
+    border: 0;
+    background: var(--paper);
+    box-shadow: none;
+    animation: none;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-menu > .shell {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+  }
+
+  .mobile-menu a[href^="#"] {
+    padding-block: clamp(16px, 2.8vh, 30px);
+    gap: 1rem;
+  }
+
+  .mobile-menu a .menu-caption {
+    font-size: clamp(1.75rem, 5.7vw, 3.25rem);
+    font-weight: 550;
+    letter-spacing: -.045em;
+    line-height: 1.17;
+    color: var(--ink);
+  }
+
+  .mobile-menu a .menu-index {
+    align-self: center;
+    color: var(--muted);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+
+  .mobile-menu .mobile-phone {
+    margin-top: auto;
+    min-height: 44px;
+    padding-block: 26px 10px;
+    align-self: flex-start;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu a {
+      --entry-delay: 0ms;
+    }
+
+    .mobile-menu a:nth-child(2) {
+      --entry-delay: 75ms;
+    }
+
+    .mobile-menu a:nth-child(3) {
+      --entry-delay: 150ms;
+    }
+
+    .mobile-menu a:nth-child(4) {
+      --entry-delay: 225ms;
+    }
+
+    .mobile-menu a:nth-child(5) {
+      --entry-delay: 300ms;
+    }
+
+    .mobile-menu:not([hidden]) .menu-caption,
+    .mobile-menu:not([hidden]) .mobile-phone {
+      animation: mobile-nav-name 440ms cubic-bezier(.2, .72, .23, 1) var(--entry-delay) both;
+    }
+
+    .mobile-menu:not([hidden]) .menu-index {
+      animation: mobile-nav-number 470ms cubic-bezier(.2, .72, .23, 1) calc(var(--entry-delay) + 45ms) both;
+    }
+  }
+}
+
+@keyframes mobile-nav-name {
+  from {
+    opacity: 0;
+    transform: translate(-16px, 8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mobile-nav-number {
+  from {
+    opacity: 0;
+    transform: translate(14px, -5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
